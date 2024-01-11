@@ -1,16 +1,34 @@
 // src/index.js
-import express, { Express, Request, Response } from "express";
+import express, { Application } from "express";
 import dotenv from "dotenv";
-
+import { Connection } from "./config/database";
 dotenv.config();
 
-const app = express();
+
+const app : Application  = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Express + TypeScript Server');
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+
+const start = async (): Promise<void> => {
+  try {
+    Connection
+    .initialize()
+    .then(async() => {
+        console.log("Database ok.")
+        app.listen(3000, () => { 
+          console.log(`Server started on port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error("Error database", err)
+    })
+  } catch (error) {
+    console.error(error); 
+    process.exit(1); 
+  }
+};
+
+ start();
