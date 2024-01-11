@@ -13,5 +13,5 @@ export class ServiceController  {
         } catch (error) {
           res.status(500).json({ error: 'Erro ao obter servicos.' });
         }
-      }
+    }
 }

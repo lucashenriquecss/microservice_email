@@ -1,5 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn } from "typeorm"
-
+export interface ILog {
+    id: number;
+    description: string;
+    process_id: string;
+    status: string;
+    body: string;
+    response: string;
+}
 @Entity("logs")
 export class Log {
     @PrimaryGeneratedColumn()
