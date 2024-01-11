@@ -1,9 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn } from "typeorm"
 
+export interface IService {
+    id: number;
+    app: string;
+    type: string;
+    status: string;
+    body: string;
+    response: string;
+}
+
 @Entity("services")
 export class Service {
     @PrimaryGeneratedColumn()
-    id?: number
+    id: number
     @Column()
     app?: string
     @Column()
@@ -21,3 +30,4 @@ export class Service {
     @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
     updated_at?: Date;
 }
+

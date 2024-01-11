@@ -25,7 +25,7 @@ export const Connection = new DataSource({
     password: process.env.DB_PASSWORD,
     synchronize: true,
     database: process.env.DB_NAME,
-    entities: enty
+    entities: enty || ["src/models/*.ts"] //verificar
 
 })
 
