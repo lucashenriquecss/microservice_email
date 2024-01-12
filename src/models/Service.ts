@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn,UpdateDateColumn } from "typeorm"
 
 export interface IService {
-    id: number;
     app: string;
     type: string;
     status: string;
@@ -12,7 +11,7 @@ export interface IService {
 @Entity("services")
 export class Service {
     @PrimaryGeneratedColumn()
-    id: number
+    id?: number
     @Column()
     app?: string
     @Column()

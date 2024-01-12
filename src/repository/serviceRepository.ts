@@ -1,35 +1,36 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getRepository, Repository } from 'typeorm';
 import {IService,Service} from '../models/Service';
+import { Connection } from "../config/database";
 
 
+ 
+export class ServiceRepository  {
 
-export class ServiceRepository implements IRepository<IService> {
-  private repository: Repository<IService>;
 
-  constructor() {
-    this.repository = getRepository(Service);
+  async getAll() {
+    return Connection.getRepository(Service).find();
   }
 
-  async getAll(): Promise<IService[]> {
-    return this.repository.find();
+  async getById(id: number) {
+    // return Connection.getRepository(Service).findOne(id);
   }
 
-  async getById(id: number): Promise<IService | null> {
-    return this.repository.findOne(id);
+  async create(data: IService): Promise<void> {
+    console.log(data);
+    const newService = await Connection.getRepository(Service).create(data);
+    await Connection.getRepository(Service).save(newService);
+  
   }
 
-  async create(data: IService): Promise<IService> {
-    const newService = this.repository.create(data);
-    return this.repository.save(newService);
-  }
-
-  async update(id: number, data: Partial<IService>): Promise<IService | null> {
-    await this.repository.update(id, data);
-    return this.repository.findOne(id);
+  async update(id: number, data: Partial<IService>) {
+    await Connection.getRepository(Service).update(id, data);
+    // return Connection.getRepository(Service).findOne(id);
   }
 
   async delete(id: number): Promise<boolean> {
-    const result = await this.repository.delete(id);
+    const result = await Connection.getRepository(Service).delete(id);
     return result.affected === 1;
   }
 }
+
